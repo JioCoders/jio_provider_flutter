@@ -24,10 +24,10 @@ export 'package:jio_provider/src/lazy_jio_provider.dart';
 /// runApp(MultiJioProvider(providers: [
 /// // ✅ Lazy — created only when used <-- created only when first used (with LAZY loading)
 /// // ✅ App startup is faster 🚀  ✅ Memory usage is lower 💾
-/// LazyJioProvider<ExpenseViewModel>(() => ExpenseViewModel()),
-/// LazyJioProvider<CounterViewModel>(() => CounterViewModel()),
+/// LazyJioProvider<>(() => ExpenseViewModel()),
+/// LazyJioProvider<>(() => CounterViewModel()),
 /// // ✅ Eager — created immediately
-/// EagerJioProvider<TodoViewModel>(notifier: TodoViewModel()),
+/// EagerJioProvider<>(notifier: TodoViewModel()),
 /// ], child: const MyApp(),),);
 export 'package:jio_provider/src/multi_jio_provider.dart';
 /// Performance Impact (Real-World)
