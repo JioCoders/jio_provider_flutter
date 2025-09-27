@@ -7,6 +7,7 @@ library;
 /// Use SingleJioProvider for global things needed at startup (e.g., auth state, theme).
 /// runApp(BasicJioProvider(notifier: ExpenseViewModel(), child: const MyApp()));
 export 'package:jio_provider/src/basic_jio_provider.dart';
+
 /// ✅ This part WATCHES the ViewModel → rebuilds when todos change
 /// ✅ Use READ because we don't want to rebuild this FAB widget
 /// 🪄 Watch for changes — rebuilds when notifyListeners() is called
@@ -15,6 +16,7 @@ export 'package:jio_provider/src/basic_jio_provider.dart';
 export 'package:jio_provider/src/jio_context.dart';
 export 'package:jio_provider/src/jio_notifier.dart';
 export 'package:jio_provider/src/lazy_jio_provider.dart';
+
 ///📊 Performance Comparison
 /// Metric	Before (Eager)	After (Lazy)
 /// Startup time	~150 ms	~70 ms ⚡
@@ -30,6 +32,7 @@ export 'package:jio_provider/src/lazy_jio_provider.dart';
 /// EagerJioProvider<>(notifier: TodoViewModel()),
 /// ], child: const MyApp(),),);
 export 'package:jio_provider/src/multi_jio_provider.dart';
+
 /// Performance Impact (Real-World)
 /// Metric	Before	After
 /// Widgets rebuilt on update	~5	~2

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart' show Widget;
 import 'package:jio_provider/src/basic_jio_provider.dart' show BasicJioProvider;
 import 'package:jio_provider/src/jio_notifier.dart' show JioNotifier;
-import 'package:jio_provider/src/jio_provider_builder.dart' show JioProviderBuilder;
+import 'package:jio_provider/src/jio_provider_builder.dart'
+    show JioProviderBuilder;
 
 /// ✅ Helper class to keep type info
 /// 🧰 Eager provider (created immediately)
