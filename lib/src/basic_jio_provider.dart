@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart' show BuildContext, FlutterError, InheritedNotifier;
-import 'package:jio_provider/jio_notifier.dart' show JioNotifier;
+import 'package:jio_provider/src/jio_notifier.dart' show JioNotifier;
 
 /// 🪄 Custom Provider that holds a JioNotifier and notifies listeners
 class BasicJioProvider<T extends JioNotifier> extends InheritedNotifier<T> {

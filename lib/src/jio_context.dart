@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' show BuildContext;
-import 'package:jio_provider/basic_jio_provider.dart' show BasicJioProvider;
-import 'package:jio_provider/jio_notifier.dart' show JioNotifier;
+import 'package:jio_provider/src/basic_jio_provider.dart' show BasicJioProvider;
+import 'package:jio_provider/src/jio_notifier.dart' show JioNotifier;
 
 /// 🔧 Extension methods for easier usage
 extension JioContext on BuildContext {

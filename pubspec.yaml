@@ -1,12 +1,12 @@
 name: jio_provider
-description: Simple provider inherited widget.
-version: 0.0.1
-repository: https://github.com/jiocoders/jio_provider
-issue_tracker: https://github.com/jiocoders/jio_provider/issues
-homepage: https://github.com/jiocoders/jio_provider
+description: Simple light weight provider inherited widget, basic, multi, eager and lazy jio providers.
+version: 1.0.0
+repository: https://github.com/jiocoders/jio_provider_flutter
+issue_tracker: https://github.com/jiocoders/jio_provider_flutter/issues
+homepage: https://github.com/jiocoders/jio_provider_flutter
 documentation: https://jiocoders.com
-topics: [state-management]
-funding: [https://jiocoders.com]
+topics: [ state-management, jio-provider, multi-jio-provider, eager-jio-provider, lazy-jio-provider ]
+funding: [ https://jiocoders.com ]
 
 environment:
   sdk: ^3.8.1
@@ -27,37 +27,11 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
 
-  # To add assets to your package, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
-  #
-  # For details regarding assets in packages, see
-  # https://flutter.dev/to/asset-from-package
-  #
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/to/resolution-aware-images
-
-  # To add custom fonts to your package, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts in packages, see
-  # https://flutter.dev/to/font-from-package
-
+# To add assets to your package, add an assets section, like this:
+# assets:
+#   - images/a_dot_burr.jpeg
+#   - images/a_dot_ham.jpeg
+#
 screenshots:
-  - description: The provider package logo.
+  - description: The jio provider package logo.
     path: screenshots/provider.jpeg

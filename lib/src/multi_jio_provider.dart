@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart' show StatelessWidget, BuildContext, Widget;
-import 'package:jio_provider/jio_provider_builder.dart' show JioProviderBuilder;
+import 'package:flutter/material.dart'
+    show StatelessWidget, BuildContext, Widget;
+import 'package:jio_provider/src/jio_provider_builder.dart'
+    show JioProviderBuilder;
 
 /// 🧰 A container that holds multiple providers — cleaner than nesting many `JioProvider`s.
 class MultiJioProvider extends StatelessWidget {

@@ -4,7 +4,13 @@
 
 ## Description(s)
 
-A Flutter plugin for android, iOS and web which provides reactive widget.
+A Flutter package for android, iOS and web which provides reactive widget.
+Two types of JioProvider are available:
+1. BasicJioProvider
+2. MultiJioProvider
+MultiJioProvider has two approaches:
+   1. EagerJioProvider
+   2. LazyJioProvider
 
 ## Performance Metrics
 
@@ -37,10 +43,10 @@ dependencies:
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:jio_provider/jio_provider.dart' show Reactive, RexController;
+import 'package:jio_provider/jio_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(BasicJioProvider(notifier: CounterViewModel(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -48,69 +54,65 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const ReactiveCounterView(),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: CounterView(),
     );
   }
 }
+class CounterViewModel extends JioNotifier {
+  bool _option = false;
+  int _count = 0;
 
-class ReactiveCounterView extends StatelessWidget {
-  const ReactiveCounterView({super.key});
+  bool get option => _option;
+
+  int get count => _count;
+
+  void changeOption() {
+    _option = !_option;
+    notifyListeners();
+  }
+
+  void increment() {
+    _count++;
+    notifyListeners();
+  }
+}
+
+class CounterView extends StatelessWidget {
+  const CounterView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Bind the CounterController using `RexController` or directly
-    final CounterController counterController = CounterController();
+    final counter = JioProvider.of<CounterViewModel>(context); // OK | OK for small app
 
     return Scaffold(
-      appBar: AppBar(title: Text('Reactive Counter')),
-      body: Center(
-        // Use `Reactive` widget to rebuild when the counter value changes
-        child: Reactive<int>(
-          stream: counterController.stateStream,
-          builder: (context, counter) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+      appBar: AppBar(title: Text(counter.option ? 'OPTION1' : 'OPTION2')),
+      body: Column(
+        children: [
+          Center(
+            child: Row(
               children: [
-                Text('Counter: $counter', style: TextStyle(fontSize: 40)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: counterController.increment,
-                      child: Text('Increment'),
-                    ),
-                    SizedBox(width: 20),
-                    ElevatedButton(
-                      onPressed: counterController.decrement,
-                      child: Text('Decrement'),
-                    ),
-                  ],
+                ElevatedButton(
+                  onPressed: () => counter.changeOption(),
+                  child: Text('OPTIONS'),
                 ),
               ],
-            );
-          },
-        ),
+            ),
+          ),
+          Center(
+            child: Text(
+              'Count: ${counter.count}',
+              style: const TextStyle(fontSize: 28),
+            ),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: counter.increment, 
+        child: const Icon(Icons.add),
       ),
     );
-  }
-}
-
-class CounterController extends RexController<int> {
-  CounterController() : super(0); // Initialize with a counter of 0
-
-  // Increment the counter value
-  void increment() {
-    updateState(state + 5);
-  }
-
-  // Decrement the counter value
-  void decrement() {
-    updateState(state - 5);
   }
 }
 

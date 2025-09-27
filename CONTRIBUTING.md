@@ -29,4 +29,4 @@ We welcome code contributions! Please follow these steps to contribute code:
 
    Clone your forked repository to your local machine:
    ```sh
-   git clone https://github.com/jiocoders/jio_provider.git
+   git clone https://github.com/jiocoders/jio_provider_flutter.git

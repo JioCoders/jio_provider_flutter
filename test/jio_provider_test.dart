@@ -1,8 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:jio_provider/calculator.dart' show Calculator;
 
-import 'package:jio_provider/jio_provider.dart';
-
 void main() {
   test('adds one to input values', () {
     final calculator = Calculator();
