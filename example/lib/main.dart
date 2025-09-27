@@ -1,10 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:jio_provider/jio_provider.dart'
-    show JioProvider, JioNotifier, JioContext;
+import 'package:jio_provider/jio_provider.dart';
 
 void main() {
   debugPrintRebuildDirtyWidgets = false; // 👈 enables rebuild logging
-  runApp(JioProvider(notifier: ExpenseViewModel(), child: const MyApp()));
+  // runApp(BasicJioProvider(notifier: ExpenseViewModel(), child: const MyApp()));
+
+  runApp(
+    MultiJioProvider(
+      providers: [
+        // ✅ Lazy — created only when used <-- created only when first used (with LAZY loading)
+        // ✅ App startup is faster 🚀  ✅ Memory usage is lower 💾
+        LazyJioProvider<ExpenseViewModel>(
+          () => ExpenseViewModel(),
+          autoDispose: false,
+        ),
+        // 👈 Keeps state alive even after screen pop
+        LazyJioProvider<CounterViewModel>(() => CounterViewModel()),
+        // ✅ Eager — created immediately
+        EagerJioProvider<TodoViewModel>(notifier: TodoViewModel()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -48,8 +65,11 @@ class CounterView extends StatelessWidget {
   Widget build(BuildContext context) {
     _buildCount++;
     debugPrint('🔁 Counter built $_buildCount times');
-    // final counter = JioProvider.of<CounterViewModel>(context);
-    final counter = context.jioWatch<CounterViewModel>(); // rebuilds on change
+    // final counter = JioProvider.of<CounterViewModel>(context); // OK | OK for small app
+    final counter = context
+        .jioWatch<
+          CounterViewModel
+        >(); // rebuilds on change : use it in separate widget
 
     return Scaffold(
       appBar: AppBar(title: Text(counter.option ? 'OPTION1' : 'OPTION2')),
