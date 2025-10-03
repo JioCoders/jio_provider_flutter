@@ -10,12 +10,23 @@ void main() {
       providers: [
         // ✅ Lazy — created only when used <-- created only when first used (with LAZY loading)
         // ✅ App startup is faster 🚀  ✅ Memory usage is lower 💾
-        LazyJioProvider<ExpenseViewModel>(
-          () => ExpenseViewModel(),
-          autoDispose: false,
-        ),
-        // 👈 Keeps state alive even after screen pop
-        LazyJioProvider<CounterViewModel>(() => CounterViewModel()),
+        //----------------New version-------------------
+        LazyJioUniversalProvider<ExpenseViewModel>(() async {
+          await Future.delayed(const Duration(seconds: 2));
+          return ExpenseViewModel();
+        }),
+        LazyJioUniversalProvider<CounterViewModel>(() async {
+          await Future.delayed(const Duration(seconds: 2));
+          return CounterViewModel();
+        }),
+        //----------------Old version-------------------
+        // LazyJioProvider<ExpenseViewModel>(
+        //   () => ExpenseViewModel(),
+        //   autoDispose: false,
+        // ),
+        // // 👈 Keeps state alive even after screen pop
+        // LazyJioProvider<CounterViewModel>(() => CounterViewModel()),
+        //-----------------------------------------------
         // ✅ Eager — created immediately
         EagerJioProvider<TodoViewModel>(notifier: TodoViewModel()),
       ],
@@ -67,7 +78,7 @@ class CounterView extends StatelessWidget {
     debugPrint('🔁 Counter built $_buildCount times');
     // final counter = JioProvider.of<CounterViewModel>(context); // OK | OK for small app
     final counter = context
-        .jioWatch<
+        .watch<
           CounterViewModel
         >(); // rebuilds on change : use it in separate widget
 
@@ -80,7 +91,7 @@ class CounterView extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () =>
-                      context.jioRead<CounterViewModel>().changeOption(),
+                      context.read<CounterViewModel>().changeOption(),
                   child: Text('OPTIONS'),
                 ),
               ],
@@ -95,7 +106,7 @@ class CounterView extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: context.jioRead<CounterViewModel>().increment, // no rebuild
+        onPressed: context.read<CounterViewModel>().increment, // no rebuild
         child: const Icon(Icons.add),
       ),
     );
@@ -126,7 +137,7 @@ class TodoView extends StatelessWidget {
     _buildCount++;
     debugPrint('🔁 TodoList built $_buildCount times');
     // ✅ This part WATCHES the ViewModel → rebuilds when todos change
-    final todos = context.jioWatch<TodoViewModel>().todos;
+    final todos = context.watch<TodoViewModel>().todos;
 
     return Scaffold(
       appBar: AppBar(
@@ -137,7 +148,7 @@ class TodoView extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Center(
               child: Text(
-                "Total: ${context.jioRead<TodoViewModel>().count}",
+                "Total: ${context.read<TodoViewModel>().count}",
                 style: const TextStyle(fontSize: 16),
               ),
             ),
@@ -151,7 +162,7 @@ class TodoView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // ✅ Use READ because we don't want to rebuild this FAB widget
-          context.jioRead<TodoViewModel>().addTodo();
+          context.read<TodoViewModel>().addTodo();
         },
         child: const Icon(Icons.add),
       ),
@@ -202,7 +213,7 @@ class DashboardView extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.jioRead<ExpenseViewModel>().addTxn(10);
+          context.read<ExpenseViewModel>().addTxn(10);
         },
         child: Icon(Icons.add),
       ),
@@ -226,7 +237,7 @@ class _BalanceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final total = context.jioWatch<ExpenseViewModel>().total;
+    final total = context.watch<ExpenseViewModel>().total;
     return RebuildLogger(
       label: 'Balance',
       child: Text("Total Balance: ₹$total"),
@@ -239,7 +250,7 @@ class _RecentTransactions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final txs = context.jioWatch<ExpenseViewModel>().txs;
+    final txs = context.watch<ExpenseViewModel>().txs;
     return RebuildLogger(
       label: 'Txn',
       child: Expanded(

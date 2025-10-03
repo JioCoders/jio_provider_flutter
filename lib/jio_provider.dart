@@ -15,7 +15,9 @@ export 'package:jio_provider/src/basic_jio_provider.dart';
 /// Does not rebuild (for actions, callbacks, etc.)
 export 'package:jio_provider/src/jio_context.dart';
 export 'package:jio_provider/src/jio_notifier.dart';
-export 'package:jio_provider/src/lazy_jio_provider.dart';
+export 'package:jio_provider/src/fenix/lazy_jio_provider.dart';
+export 'package:jio_provider/src/fenix/lazy_jio_async_provider.dart';
+export 'package:jio_provider/src/fenix/lazy_jio_universal_provider.dart';
 
 ///📊 Performance Comparison
 /// Metric	Before (Eager)	After (Lazy)
