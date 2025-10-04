@@ -11,21 +11,21 @@ void main() {
         // ✅ Lazy — created only when used <-- created only when first used (with LAZY loading)
         // ✅ App startup is faster 🚀  ✅ Memory usage is lower 💾
         //----------------New version-------------------
-        LazyJioUniversalProvider<ExpenseViewModel>(() async {
-          await Future.delayed(const Duration(seconds: 2));
-          return ExpenseViewModel();
-        }),
-        LazyJioUniversalProvider<CounterViewModel>(() async {
-          await Future.delayed(const Duration(seconds: 2));
-          return CounterViewModel();
-        }),
+        // LazyJioUniversalProvider<ExpenseViewModel>(() async {
+        //   await Future.delayed(const Duration(seconds: 2));
+        //   return ExpenseViewModel();
+        // }),
+        // LazyJioUniversalProvider<CounterViewModel>(() async {
+        //   await Future.delayed(const Duration(seconds: 2));
+        //   return CounterViewModel();
+        // }),
         //----------------Old version-------------------
-        // LazyJioProvider<ExpenseViewModel>(
-        //   () => ExpenseViewModel(),
-        //   autoDispose: false,
-        // ),
-        // // 👈 Keeps state alive even after screen pop
-        // LazyJioProvider<CounterViewModel>(() => CounterViewModel()),
+        LazyJioProvider<ExpenseViewModel>(
+          () => ExpenseViewModel(),
+          autoDispose: false,
+        ),
+        // 👈 Keeps state alive even after screen pop
+        LazyJioProvider<CounterViewModel>(() => CounterViewModel()),
         //-----------------------------------------------
         // ✅ Eager — created immediately
         EagerJioProvider<TodoViewModel>(notifier: TodoViewModel()),
@@ -52,6 +52,16 @@ class CounterViewModel extends JioNotifier {
   bool _option = false;
   int _count = 0;
 
+  // Private constructor
+  CounterViewModel._();
+
+  // Public accessor
+  // Factory constructor
+  factory CounterViewModel() => _instance;
+
+  // Single static instance
+  static final CounterViewModel _instance = CounterViewModel._();
+
   bool get option => _option;
 
   int get count => _count;
@@ -65,6 +75,12 @@ class CounterViewModel extends JioNotifier {
     _count++;
     notifyListeners();
   }
+
+  @override
+  void dispose() {
+    debugPrint('🗑️ CounterViewModel disposed');
+    super.dispose();
+  }
 }
 
 class CounterView extends StatelessWidget {
@@ -77,10 +93,8 @@ class CounterView extends StatelessWidget {
     _buildCount++;
     debugPrint('🔁 Counter built $_buildCount times');
     // final counter = JioProvider.of<CounterViewModel>(context); // OK | OK for small app
-    final counter = context
-        .watch<
-          CounterViewModel
-        >(); // rebuilds on change : use it in separate widget
+    // rebuilds on change : use it in separate widget
+    final counter = context.watch<CounterViewModel>();
 
     return Scaffold(
       appBar: AppBar(title: Text(counter.option ? 'OPTION1' : 'OPTION2')),
