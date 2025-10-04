@@ -9,3 +9,7 @@
 ## [1.0.1] - 04 Oct 2025
 
 * Lazy Jio Provider, Universal Fenix Jio Provider.
+
+## [1.0.2] - 04 Oct 2025
+
+* Dart format changes.

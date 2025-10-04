@@ -1,15 +1,15 @@
-// // class MyWidget extends StatelessWidget {
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     // Watch the provider (throws if not in tree)
-// //     final notifier = context.watch<MyNotifier>();
-// //
-// //     // Or access only if already created
-// //     final maybeNotifier = context.maybeWatch<MyNotifier>();
-// //
-// //     return Text('Value: ${notifier.value}');
-// //   }
-// // }
+// class MyWidget extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     // Watch the provider (throws if not in tree)
+//     final notifier = context.watch<MyNotifier>();
+//
+//     // Or access only if already created
+//     final maybeNotifier = context.maybeWatch<MyNotifier>();
+//
+//     return Text('Value: ${notifier.value}');
+//   }
+// }
 
 import 'package:flutter/material.dart' show BuildContext;
 import 'package:jio_provider/jio_provider.dart' show LazyJioUniversalProvider;
@@ -29,8 +29,7 @@ extension JioContext on BuildContext {
 
   /// Synchronous access to the notifier if already created, else null
   T? maybeWatch<T extends JioNotifier>() {
-    final provider =
-    dependOnInheritedWidgetOfExactType<BasicJioProvider<T>>();
+    final provider = dependOnInheritedWidgetOfExactType<BasicJioProvider<T>>();
     return provider?.notifier;
   }
 

@@ -11,6 +11,8 @@ Two types of JioProvider are available:
 MultiJioProvider has two approaches:
    1. EagerJioProvider
    2. LazyJioProvider
+   3. LazyJioAsyncProvider
+   4. LazyJioUniversalProvider
 
 ## Performance Metrics
 
@@ -124,7 +126,7 @@ class CounterView extends StatelessWidget {
 
 # License
 
-Copyright (c) 2024 Jiocoders
+Copyright (c) 2025 Jiocoders
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

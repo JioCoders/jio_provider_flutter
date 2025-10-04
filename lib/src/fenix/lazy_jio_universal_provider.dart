@@ -8,10 +8,19 @@
 
 import 'dart:async' show FutureOr;
 
-import 'package:flutter/material.dart' show StatefulWidget, Widget, State, BuildContext, Center, CircularProgressIndicator, FlutterError;
+import 'package:flutter/material.dart'
+    show
+        StatefulWidget,
+        Widget,
+        State,
+        BuildContext,
+        Center,
+        CircularProgressIndicator,
+        FlutterError;
 import 'package:jio_provider/jio_provider.dart' show JioNotifier;
 import 'package:jio_provider/src/basic_jio_provider.dart' show BasicJioProvider;
-import 'package:jio_provider/src/jio_provider_builder.dart' show JioProviderBuilder;
+import 'package:jio_provider/src/jio_provider_builder.dart'
+    show JioProviderBuilder;
 
 /// 🦅 Universal Fenix Lazy Provider (sync or async)
 class LazyJioUniversalProvider<T extends JioNotifier>
@@ -53,7 +62,7 @@ class LazyJioUniversalProvider<T extends JioNotifier>
       });
       return await _creationFuture!;
     } else {
-      _sharedInstance = result as T;
+      _sharedInstance = result;
       return _sharedInstance!;
     }
   }
@@ -63,21 +72,19 @@ class LazyJioUniversalProvider<T extends JioNotifier>
 
   /// 🪄 Watch / access from context
   static T? of<T extends JioNotifier>(BuildContext context) {
-    final provider =
-    context.dependOnInheritedWidgetOfExactType<BasicJioProvider<T>>();
+    final provider = context
+        .dependOnInheritedWidgetOfExactType<BasicJioProvider<T>>();
     if (provider == null) {
       throw FlutterError(
-          'No BasicJioProvider<$T> found in context. Make sure you wrapped your widget with the provider.');
+        'No BasicJioProvider<$T> found in context. Make sure you wrapped your widget with the provider.',
+      );
     }
     return provider.notifier;
   }
 
   @override
   Widget build(Widget child) {
-    return _LazyJioUniversalProviderWrapper<T>(
-      provider: this,
-      child: child,
-    );
+    return _LazyJioUniversalProviderWrapper<T>(provider: this, child: child);
   }
 }
 
@@ -131,9 +138,6 @@ class _UniversalFenixLazyJioProviderWrapperState<T extends JioNotifier>
       return const Center(child: CircularProgressIndicator());
     }
 
-    return BasicJioProvider<T>(
-      notifier: instance!,
-      child: widget.child,
-    );
+    return BasicJioProvider<T>(notifier: instance!, child: widget.child);
   }
 }

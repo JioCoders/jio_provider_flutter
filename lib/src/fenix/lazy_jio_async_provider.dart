@@ -1,7 +1,15 @@
-import 'package:flutter/material.dart' show StatefulWidget, Widget, State, BuildContext, Center, CircularProgressIndicator;
+import 'package:flutter/material.dart'
+    show
+        StatefulWidget,
+        Widget,
+        State,
+        BuildContext,
+        Center,
+        CircularProgressIndicator;
 import 'package:jio_provider/jio_provider.dart' show JioNotifier;
 import 'package:jio_provider/src/basic_jio_provider.dart' show BasicJioProvider;
-import 'package:jio_provider/src/jio_provider_builder.dart' show JioProviderBuilder;
+import 'package:jio_provider/src/jio_provider_builder.dart'
+    show JioProviderBuilder;
 
 /// 🦅 Async Fenix Lazy Provider with reference counting
 class LazyJioAsyncProvider<T extends JioNotifier>
@@ -44,10 +52,7 @@ class LazyJioAsyncProvider<T extends JioNotifier>
 
   @override
   Widget build(Widget child) {
-    return _LazyJioAsyncProviderWrapper<T>(
-      provider: this,
-      child: child,
-    );
+    return _LazyJioAsyncProviderWrapper<T>(provider: this, child: child);
   }
 }
 
@@ -101,9 +106,6 @@ class _AsyncFenixLazyJioProviderWrapperState<T extends JioNotifier>
       return const Center(child: CircularProgressIndicator());
     }
 
-    return BasicJioProvider<T>(
-      notifier: instance!,
-      child: widget.child,
-    );
+    return BasicJioProvider<T>(notifier: instance!, child: widget.child);
   }
 }
