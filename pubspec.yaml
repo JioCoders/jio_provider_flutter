@@ -1,5 +1,5 @@
 name: jio_provider
-description: Simple light weight provider inherited widget, basic, multi, eager and lazy jio providers.
+description: Simple light weight provider inherited widget (state management), basic, multi, eager and lazy jio providers.
 version: 1.0.2
 repository: https://github.com/jiocoders/jio_provider_flutter
 issue_tracker: https://github.com/jiocoders/jio_provider_flutter/issues
